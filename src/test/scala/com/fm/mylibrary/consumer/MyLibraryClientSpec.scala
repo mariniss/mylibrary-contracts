@@ -17,12 +17,12 @@ class MyLibraryClientSpec extends FunSpec with Matchers {
       val categories = List(Category("Java"), Category("DevOps"))
 
       forgePact
-        .between("Consumer")
-        .and("myLibrary-server")
+        .between("ScalaConsumer")
+        .and("myLibraryServer")
         .addInteraction(
           interaction
             .description("Fetching categories")
-            .given("Categories: Java, DevOps")
+            .given("Categories: [Java, DevOps]")
             .uponReceiving(
               method = GET,
               path = "/search/category",
