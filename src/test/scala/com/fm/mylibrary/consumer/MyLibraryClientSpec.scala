@@ -1,48 +1,51 @@
 package com.fm.mylibrary.consumer
 
-import com.fm.mylibrary.consumer.model.Category
-import org.scalatest.{FunSpec, Matchers}
+import akka.http.scaladsl.model._
+import com.fm.mylibrary.BaseAppClientTestApp
+import com.fm.mylibrary.model.Category
 
-import com.itv.scalapact.ScalaPactForger._
-import com.fm.mylibrary.consumer.model.JsonProtocol._
-import spray.json._
+import scala.concurrent.Future
 
 
-class MyLibraryClientSpec extends FunSpec with Matchers {
+class MyLibraryClientSpec extends BaseAppClientTestApp {
 
-  describe("Connecting to the MyLibrary server") {
+  "Fetch categories" must {
+    "execute the HTTP request to get all categories and returns them" in {
+      val request = HttpRequest(HttpMethods.GET, "//test/search/category")
+      val responseEntity = HttpEntity(bytes = """[{"name": "Java"}, {"name": "DevOps"}]""".getBytes,
+                                      contentType = ContentTypes.`application/json`)
+      val response = HttpResponse(status = StatusCodes.OK, entity = responseEntity)
+      requestExecutor.expects(request).returning(Future.successful(response))
 
-    it("should be able to fetch the categories"){
+      val results = new MyLibraryClient().fetchCategories("//test")
 
-      val categories = List(Category("Java"), Category("DevOps"))
+      results.isDefined shouldEqual true
+      results.get.size shouldEqual 2
+      results.get.contains(Category("Java")) shouldEqual true
+      results.get.contains(Category("DevOps")) shouldEqual true
+    }
 
-      forgePact
-        .between("ScalaConsumer")
-        .and("myLibraryServer")
-        .addInteraction(
-          interaction
-            .description("Fetching categories")
-            .given("Categories: [Java, DevOps]")
-            .uponReceiving(
-              method = GET,
-              path = "/search/category",
-              query = None)
-//              headers = Map("Accept" -> "application/json"), //Add this and see the strange error, it seems it does not match the request and retrun with another stuff
-//              body = None,
-//              matchingRules = None)
-            .willRespondWith(
-              status = 200,
-              headers = Map("Content-Type" -> "application/json"),
-              body = categories.toJson.toString())
-        )
-        .runConsumerTest { mockConfig =>
-          val results = MyLibraryClient.fetchCategories(mockConfig.baseUrl)
+    "execute the HTTP request to get all categories and return an empty array if there are none" in {
+      val request = HttpRequest(HttpMethods.GET, "//test/search/category")
+      val responseEntity = HttpEntity(bytes = "[]".getBytes, contentType = ContentTypes.`application/json`)
+      val response = HttpResponse(status = StatusCodes.OK, entity = responseEntity)
+      requestExecutor.expects(request).returning(Future.successful(response))
 
-          results.isDefined shouldEqual true
-          results.get.size shouldEqual 2
-          results.get.forall(c => categories.contains(c)) shouldEqual true
-        }
+      val results = new MyLibraryClient().fetchCategories("//test")
 
+      results.isDefined shouldEqual true
+      results.get.size shouldEqual 0
+    }
+
+    "execute the HTTP request to get all categories and return an empty option in case of error" in {
+      val request = HttpRequest(HttpMethods.GET, "//test/search/category")
+      val response = HttpResponse(status = StatusCodes.BadRequest)
+      requestExecutor.expects(request).returning(Future.successful(response))
+
+      val results = new MyLibraryClient().fetchCategories("//test")
+
+      results.isDefined shouldEqual false
     }
   }
+
 }

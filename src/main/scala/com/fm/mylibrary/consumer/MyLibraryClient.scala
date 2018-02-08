@@ -1,31 +1,27 @@
 package com.fm.mylibrary.consumer
 
 import akka.actor.ActorSystem
-import akka.http.scaladsl.Http
 import akka.http.scaladsl.client.RequestBuilding
+import akka.http.scaladsl.model.{HttpRequest, HttpResponse, StatusCodes}
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
-import com.fm.mylibrary.consumer.model.Category
-import com.fm.mylibrary.consumer.model.JsonProtocol._
+import com.fm.mylibrary.model.Category
+import com.fm.mylibrary.model.JsonProtocol._
 
-import scala.concurrent.{Await, Future}
-import scala.concurrent.duration._
-
-object MyLibraryClient {
-
-  implicit val system = ActorSystem()
-  implicit val materializer = ActorMaterializer()
-  implicit val executionContext = system.dispatcher
+import scala.concurrent.{ExecutionContextExecutor, Future}
 
 
-  def fetchCategories(serverUrl: String): Option[List[Category]] = {
+class MyLibraryClient(implicit val actorSystem: ActorSystem,
+                      implicit val materializer: ActorMaterializer,
+                      implicit val executionContext: ExecutionContextExecutor,
+                      implicit val requestExecutor: HttpRequest => Future[HttpResponse]) extends BaseHttpClient {
 
-    val request = RequestBuilding.Get(s"$serverUrl/search/category")
-    val response : Future[Option[List[Category]]] = Http().singleRequest(request).flatMap({  response =>
-        Unmarshal(response.entity).to[Option[List[Category]]]
-    })
-
-    Await.result(response, 5000 millis)
-  }
-
+  def fetchCategories(serverUrl: String): Option[List[Category]] = executeSyncRequest(
+      RequestBuilding.Get(s"$serverUrl/search/category"),
+      response =>
+        if(response.status == StatusCodes.OK)
+          Unmarshal(response.entity).to[Option[List[Category]]]
+        else
+          Future.successful(None)
+  )
 }
