@@ -10,7 +10,7 @@ class CategoriesRoutesSpec extends BaseAppServerTestApp {
   "The service" should {
 
     "return an empty JSon array if there are no categories" in {
-      Get("/search/category") ~> searchRoutes ~> check {
+      Get("/search/category") ~> routes ~> check {
         responseAs[List[Category]] shouldBe List()
       }
     }

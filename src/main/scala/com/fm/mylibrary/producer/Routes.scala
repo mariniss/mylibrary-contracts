@@ -22,4 +22,6 @@ trait Routes {
       }
     }
   }
+
+  val routes = searchRoutes
 }
