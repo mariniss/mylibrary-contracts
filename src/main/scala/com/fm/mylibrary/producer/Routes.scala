@@ -3,11 +3,11 @@ package com.fm.mylibrary.producer
 import akka.stream.Materializer
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import com.fm.mylibrary.model.Category
+import com.fm.mylibrary.consumer.model.Category
 
 import scala.concurrent.ExecutionContext
 import spray.json._
-import com.fm.mylibrary.model.JsonProtocol._
+import com.fm.mylibrary.consumer.model.JsonProtocol._
 
 
 trait Routes {

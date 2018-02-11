@@ -1,9 +1,7 @@
-package com.fm.mylibrary.producer
+package com.fm.mylibrary.producer.db
 
 import slick.jdbc.H2Profile
 import slick.jdbc.H2Profile.api._
-
-import scala.concurrent.ExecutionContext.Implicits.global
 
 
 trait Database extends MigrationConfig {

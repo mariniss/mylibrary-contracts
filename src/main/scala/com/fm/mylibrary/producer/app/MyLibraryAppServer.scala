@@ -1,10 +1,11 @@
-package com.fm.mylibrary.app
+package com.fm.mylibrary.producer.app
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.directives.DebuggingDirectives
 import akka.stream.ActorMaterializer
 import com.fm.mylibrary.producer._
+import com.fm.mylibrary.producer.db.{Database, MockData}
 
 import scala.concurrent.ExecutionContextExecutor
 import scala.util.{Failure, Success}

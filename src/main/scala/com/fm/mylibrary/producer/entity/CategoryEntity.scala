@@ -1,4 +1,4 @@
-package com.fm.mylibrary.entity
+package com.fm.mylibrary.producer.entity
 
 import slick.jdbc.H2Profile.api._
 

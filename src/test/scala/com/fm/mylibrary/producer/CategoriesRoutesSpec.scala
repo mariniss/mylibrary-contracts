@@ -1,8 +1,8 @@
 package com.fm.mylibrary.producer
 
 import com.fm.mylibrary.BaseAppServerTestApp
-import com.fm.mylibrary.model.Category
-import com.fm.mylibrary.model.JsonProtocol._
+import com.fm.mylibrary.consumer.model.Category
+import com.fm.mylibrary.consumer.model.JsonProtocol._
 
 
 class CategoriesRoutesSpec extends BaseAppServerTestApp {

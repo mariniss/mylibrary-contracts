@@ -1,5 +1,6 @@
-package com.fm.mylibrary.producer
+package com.fm.mylibrary.producer.db
 
+import com.fm.mylibrary.producer.Config
 import org.flywaydb.core.Flyway
 
 

@@ -1,10 +1,8 @@
-package com.fm.mylibrary.producer
+package com.fm.mylibrary.producer.db
 
-import slick.jdbc.H2Profile.api._
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import com.fm.mylibrary.entity.CategoryEntity._
+import com.fm.mylibrary.producer.entity.CategoryEntity._
 import slick.jdbc.H2Profile
+import slick.jdbc.H2Profile.api._
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration

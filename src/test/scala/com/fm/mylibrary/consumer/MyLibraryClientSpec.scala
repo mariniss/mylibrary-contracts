@@ -2,12 +2,14 @@ package com.fm.mylibrary.consumer
 
 import akka.http.scaladsl.model._
 import com.fm.mylibrary.BaseAppClientTestApp
-import com.fm.mylibrary.model.Category
+import com.fm.mylibrary.consumer.model.Category
 
 import scala.concurrent.Future
 
 
 class MyLibraryClientSpec extends BaseAppClientTestApp {
+
+  implicit val myLibraryServerUrl:String = "//test"
 
   "Fetch categories" must {
     "execute the HTTP request to get all categories and returns them" in {
@@ -17,7 +19,7 @@ class MyLibraryClientSpec extends BaseAppClientTestApp {
       val response = HttpResponse(status = StatusCodes.OK, entity = responseEntity)
       requestExecutor.expects(request).returning(Future.successful(response))
 
-      val results = new MyLibraryClient().fetchCategories("//test")
+      val results = new MyLibraryClient().fetchCategories()
 
       results.isDefined shouldEqual true
       results.get.size shouldEqual 2
@@ -31,7 +33,7 @@ class MyLibraryClientSpec extends BaseAppClientTestApp {
       val response = HttpResponse(status = StatusCodes.OK, entity = responseEntity)
       requestExecutor.expects(request).returning(Future.successful(response))
 
-      val results = new MyLibraryClient().fetchCategories("//test")
+      val results = new MyLibraryClient().fetchCategories()
 
       results.isDefined shouldEqual true
       results.get.size shouldEqual 0
@@ -42,7 +44,7 @@ class MyLibraryClientSpec extends BaseAppClientTestApp {
       val response = HttpResponse(status = StatusCodes.BadRequest)
       requestExecutor.expects(request).returning(Future.successful(response))
 
-      val results = new MyLibraryClient().fetchCategories("//test")
+      val results = new MyLibraryClient().fetchCategories()
 
       results.isDefined shouldEqual false
     }

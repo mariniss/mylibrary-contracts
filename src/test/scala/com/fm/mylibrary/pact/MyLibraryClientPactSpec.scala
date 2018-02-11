@@ -1,8 +1,8 @@
 package com.fm.mylibrary.pact
 
 import com.fm.mylibrary.consumer.MyLibraryClient
-import com.fm.mylibrary.model.Category
-import com.fm.mylibrary.model.JsonProtocol._
+import com.fm.mylibrary.consumer.model.Category
+import com.fm.mylibrary.consumer.model.JsonProtocol._
 import com.itv.scalapact.ScalaPactForger._
 import org.scalatest.{FunSpec, Matchers}
 import spray.json._
@@ -36,9 +36,10 @@ class MyLibraryClientPactSpec extends FunSpec with Matchers {
               body = categories.toJson.toString())
         )
         .runConsumerTest { mockConfig =>
-          import com.fm.mylibrary.app.MyLibraryAppClient._
+          import com.fm.mylibrary.consumer.app.MyLibraryAppClient._
+          implicit val myLibraryServerUrl: String = mockConfig.baseUrl
 
-          val results = new MyLibraryClient().fetchCategories(mockConfig.baseUrl)
+          val results = new MyLibraryClient().fetchCategories()
 
           results.isDefined shouldEqual true
           results.get.size shouldEqual 2
