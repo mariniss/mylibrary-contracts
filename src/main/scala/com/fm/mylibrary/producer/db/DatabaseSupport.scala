@@ -4,7 +4,7 @@ import slick.jdbc.H2Profile
 import slick.jdbc.H2Profile.api._
 
 
-trait Database extends MigrationConfig {
+trait DatabaseSupport extends MigrationSupport {
 
   val db: H2Profile.backend.Database = Database.forConfig("database")
 

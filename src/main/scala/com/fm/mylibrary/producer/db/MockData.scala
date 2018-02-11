@@ -7,9 +7,7 @@ import slick.jdbc.H2Profile.api._
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-trait MockData {
-
-  implicit val db: H2Profile.backend.Database
+trait MockData extends DatabaseSupport {
 
 
   def populateDB(): Unit = {

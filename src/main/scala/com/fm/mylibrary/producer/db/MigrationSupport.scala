@@ -4,7 +4,7 @@ import com.fm.mylibrary.producer.Config
 import org.flywaydb.core.Flyway
 
 
-trait MigrationConfig extends Config {
+trait MigrationSupport extends Config {
 
   private val flyway = new Flyway()
   flyway.setDataSource(databaseUrl, databaseUser, databasePassword)

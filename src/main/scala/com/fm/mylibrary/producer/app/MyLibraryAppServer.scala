@@ -5,7 +5,7 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.directives.DebuggingDirectives
 import akka.stream.ActorMaterializer
 import com.fm.mylibrary.producer._
-import com.fm.mylibrary.producer.db.{Database, MockData}
+import com.fm.mylibrary.producer.db.{DatabaseSupport, MigrationSupport, MockData}
 
 import scala.concurrent.ExecutionContextExecutor
 import scala.util.{Failure, Success}
@@ -14,7 +14,7 @@ import scala.util.{Failure, Success}
 object MyLibraryAppServer extends App
           with Routes
           with Config
-          with Database
+          with MigrationSupport
           with MockData
           with DebuggingDirectives {
 
