@@ -1,21 +1,29 @@
 package com.fm.mylibrary.producer.entity
 
+import com.fm.mylibrary.model.Category
 import com.fm.mylibrary.producer.db.DatabaseSupport
 import slick.jdbc.H2Profile.api._
 
 import scala.concurrent.Future
 
+trait CategoryEntity {
 
-case class CategoryEntity(tag: Tag) extends Table[(String)](tag, "CATEGORY") {
-  def name = column[String]("NAME", O.PrimaryKey)
+  class Categories(tag: Tag) extends Table[Category](tag, "CATEGORY") {
+    def name = column[String]("NAME", O.PrimaryKey)
 
-  def * = (name)
+    def * = name  <> (Category.apply, Category.unapply)
+  }
+
+  protected val categories = TableQuery[Categories]
 }
 
-class CategoryEntityDAO extends DatabaseSupport {
-  val categories = TableQuery[CategoryEntity]
 
-  def findAll(): Future[Seq[CategoryEntity]] = db.run(categories.result)
-        .map(new CategoryEntity(_))
+class CategoryDAO extends CategoryEntity with DatabaseSupport {
+
+  def insertOrUpdate(category: Category): Future[Int] =
+        db.run(categories.insertOrUpdate(category))
+
+  def findAll(): Future[Seq[Category]] =
+        db.run(categories.result)
 
 }

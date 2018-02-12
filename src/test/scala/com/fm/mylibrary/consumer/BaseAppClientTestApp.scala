@@ -1,4 +1,4 @@
-package com.fm.mylibrary
+package com.fm.mylibrary.consumer
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.model.{HttpRequest, HttpResponse}

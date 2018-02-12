@@ -5,8 +5,8 @@ import akka.http.scaladsl.client.RequestBuilding
 import akka.http.scaladsl.model.{HttpRequest, HttpResponse, StatusCodes}
 import akka.http.scaladsl.unmarshalling.Unmarshal
 import akka.stream.ActorMaterializer
-import com.fm.mylibrary.consumer.model.Category
-import com.fm.mylibrary.consumer.model.JsonProtocol._
+import com.fm.mylibrary.model.Category
+import com.fm.mylibrary.model.JsonProtocol._
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
 

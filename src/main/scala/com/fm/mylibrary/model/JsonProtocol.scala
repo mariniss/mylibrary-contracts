@@ -1,4 +1,4 @@
-package com.fm.mylibrary.consumer.model
+package com.fm.mylibrary.model
 
 import spray.json._
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport

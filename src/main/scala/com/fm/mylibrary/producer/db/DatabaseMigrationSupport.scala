@@ -4,12 +4,12 @@ import com.fm.mylibrary.producer.Config
 import org.flywaydb.core.Flyway
 
 
-trait MigrationSupport extends Config {
+trait DatabaseMigrationSupport extends Config {
 
   private val flyway = new Flyway()
   flyway.setDataSource(databaseUrl, databaseUser, databasePassword)
 
-  def migrate(): Unit = {
+  def migrateDB(): Unit = {
     flyway.migrate()
   }
 

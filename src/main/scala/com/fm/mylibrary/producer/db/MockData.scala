@@ -1,28 +1,24 @@
 package com.fm.mylibrary.producer.db
 
-import com.fm.mylibrary.producer.entity.CategoryEntity._
-import slick.jdbc.H2Profile
-import slick.jdbc.H2Profile.api._
+import com.fm.mylibrary.model.Category
+import com.fm.mylibrary.producer.entity.CategoryDAO
 
-import scala.concurrent.Await
+import scala.concurrent.{Await, ExecutionContext}
 import scala.concurrent.duration.Duration
 
-trait MockData extends DatabaseSupport {
+trait MockData {
+
+  implicit val executionContext: ExecutionContext
 
 
-  def populateDB(): Unit = {
+  def addMockCategories(): Unit = {
+    val categoryEntityDAO = new CategoryDAO()
 
-    val setup = DBIO.seq(
-      // Create the tables, including primary and foreign keys
-      categories.schema.create,
+    val setupFuture = for {
+      c1 <- categoryEntityDAO.insertOrUpdate(Category("Java"))
+      c2 <- categoryEntityDAO.insertOrUpdate(Category("DevOps"))
+    } yield c1 + c2
 
-      // Insert some suppliers
-      categories += "Java",
-      categories += "DevOps"
-    )
-
-
-    val setupFuture = db.run(setup)
     Await.result(setupFuture, Duration.Inf)
   }
 

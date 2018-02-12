@@ -1,8 +1,7 @@
 package com.fm.mylibrary.consumer
 
 import akka.http.scaladsl.model._
-import com.fm.mylibrary.BaseAppClientTestApp
-import com.fm.mylibrary.consumer.model.Category
+import com.fm.mylibrary.model.Category
 
 import scala.concurrent.Future
 

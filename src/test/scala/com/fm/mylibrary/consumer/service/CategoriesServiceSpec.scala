@@ -1,7 +1,7 @@
 package com.fm.mylibrary.consumer.service
 
 import com.fm.mylibrary.consumer.MyLibraryClient
-import com.fm.mylibrary.consumer.model.Category
+import com.fm.mylibrary.model.Category
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.{Matchers, WordSpec}
 

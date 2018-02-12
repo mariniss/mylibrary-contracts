@@ -1,8 +1,8 @@
-package com.fm.mylibrary.pact
+package com.fm.mylibrary.consumer.pact
 
 import com.fm.mylibrary.consumer.MyLibraryClient
-import com.fm.mylibrary.consumer.model.Category
-import com.fm.mylibrary.consumer.model.JsonProtocol._
+import com.fm.mylibrary.model.Category
+import com.fm.mylibrary.model.JsonProtocol._
 import com.itv.scalapact.ScalaPactForger._
 import org.scalatest.{FunSpec, Matchers}
 import spray.json._

@@ -1,8 +1,7 @@
 package com.fm.mylibrary.producer
 
-import com.fm.mylibrary.BaseAppServerTestApp
-import com.fm.mylibrary.consumer.model.Category
-import com.fm.mylibrary.consumer.model.JsonProtocol._
+import com.fm.mylibrary.model.Category
+import com.fm.mylibrary.model.JsonProtocol._
 
 
 class CategoriesRoutesSpec extends BaseAppServerTestApp {
@@ -11,7 +10,7 @@ class CategoriesRoutesSpec extends BaseAppServerTestApp {
 
     "return an empty JSon array if there are no categories" in {
       Get("/search/category") ~> routes ~> check {
-        responseAs[List[Category]] shouldBe List()
+        responseAs[List[Category]] shouldBe List(Category("DevOps"), Category("Java"))
       }
     }
 
