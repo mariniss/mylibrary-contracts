@@ -1,11 +1,12 @@
 package com.fm.mylibrary.producer.pact
 
+import com.fm.mylibrary.producer.Config
 import com.fm.mylibrary.producer.app.MyLibraryAppServer
 import org.scalatest.{BeforeAndAfterAll, FunSpec, Matchers}
 import com.itv.scalapact.ScalaPactVerify._
 
 
-class MyLibraryServerPactSpec extends FunSpec with Matchers with BeforeAndAfterAll {
+class MyLibraryServerPactSpec extends FunSpec with Matchers with BeforeAndAfterAll with Config {
 
   override def beforeAll() {
     MyLibraryAppServer.main(Array())
@@ -21,7 +22,7 @@ class MyLibraryServerPactSpec extends FunSpec with Matchers with BeforeAndAfterA
       verifyPact
         .withPactSource(loadFromLocal("target/pacts"))
         .noSetupRequired // We did the setup in the beforeAll() function thanks to mockData
-        .runVerificationAgainst("localhost", 9999)
+        .runVerificationAgainst(httpInterface, httpPort)
     }
   }
 }
