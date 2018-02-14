@@ -8,7 +8,7 @@ import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpec}
 import scala.concurrent.ExecutionContextExecutor
 
 
-class BaseAppServerTestApp extends WordSpec
+class BaseTestAppServer extends WordSpec
             with ScalatestRouteTest
             with Matchers
             with MockFactory

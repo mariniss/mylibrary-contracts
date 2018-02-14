@@ -10,7 +10,7 @@ import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 import scala.concurrent.{ExecutionContextExecutor, Future}
 
 
-class BaseAppClientTestApp extends TestKit(ActorSystem("BaseAppClientTestApp"))
+class BaseTestAppClient extends TestKit(ActorSystem("BaseTestAppClient"))
             with WordSpecLike
             with ImplicitSender
             with Matchers

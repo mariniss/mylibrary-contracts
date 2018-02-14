@@ -6,7 +6,7 @@ import com.fm.mylibrary.model.Category
 import scala.concurrent.Future
 
 
-class MyLibraryClientSpec extends BaseAppClientTestApp {
+class MyLibraryClientSpec extends BaseTestAppClient {
 
   implicit val myLibraryServerUrl:String = "//test"
 

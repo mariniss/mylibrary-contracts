@@ -4,7 +4,7 @@ import com.fm.mylibrary.model.Category
 import com.fm.mylibrary.model.JsonProtocol._
 
 
-class CategoriesRoutesSpec extends BaseAppServerTestApp {
+class CategoriesRoutesSpec extends BaseTestAppServer {
 
   "The service" should {
 
